@@ -48,6 +48,15 @@ public class Main extends JavaPlugin {
 	
 	@Override
 	public void onDisable() {
+		// Update our Server entry in the database
+		try {
+			conn.createStatement().executeQuery("UPDATE bs_servers SET online = 0 AND players = 0 WHERE servername = '" + getServer().getServerName() + "'");
+		}
+		catch (SQLException e) {
+			getLogger().warning("Could not update server entry!");
+			e.printStackTrace();
+		}
+		
 		getLogger().info("Framework has been disabled.");
 	}
 }
