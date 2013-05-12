@@ -21,7 +21,7 @@ public class ServerUpdater implements Listener {
 	public void setOnline(int online) {
 		// Update our Server entry in the database
 		try {
-			this.conn.createStatement().executeQuery("UPDATE bs_servers SET online = " + online + " AND players = 0 WHERE servername = '" + Bukkit.getServer().getServerName() + "'");
+			this.conn.createStatement().executeUpdate("UPDATE bs_servers SET online = " + online + " AND players = 0 WHERE servername = '" + Bukkit.getServer().getServerName() + "'");
 		}
 		catch (SQLException e) {
 			Bukkit.getLogger().warning("Framework could not update server online status.");
@@ -36,7 +36,7 @@ public class ServerUpdater implements Listener {
 		// Update online count
 		try {
 			int onlineCount = Bukkit.getServer().getOnlinePlayers().length;
-			this.conn.createStatement().executeQuery("UPDATE bs_servers SET players = " + onlineCount + " WHERE servername = '" + Bukkit.getServer().getServerName() + "'");
+			this.conn.createStatement().executeUpdate("UPDATE bs_servers SET players = " + onlineCount + " WHERE servername = '" + Bukkit.getServer().getServerName() + "'");
 		}
 		catch (SQLException e) {
 			Bukkit.getLogger().warning("Framework could not update online player count.");
