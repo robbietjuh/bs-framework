@@ -14,18 +14,29 @@ public class Main extends JavaPlugin {
 	
 	@Override
 	public void onEnable() {
+		// Check db configuration
+		if(!getConfig().contains("db.host") || !getConfig().contains("db.port") || !getConfig().contains("db.username") || !getConfig().contains("db.password") || !getConfig().contains("db.database")) {
+			// Create a default configuration file
+			getConfig().set("db.host", "127.0.0.1");
+			getConfig().set("db.port", 3306);
+			getConfig().set("db.username", "minecraft");
+			getConfig().set("db.password", "");
+			getConfig().set("db.database", "minecraft");
+			
+			// Save configuration
+			this.saveConfig();
+			
+			// Log and exit
+			getLogger().warning("Framework has not been enabled. Please check your configuration - a default one has been written.");
+			return;
+		}
+		
 		// Fetch db configuration
 		String host = getConfig().getString("db.host");
 		int port = getConfig().getInt("db.port");
 		String user = getConfig().getString("db.username");
 		String pass = getConfig().getString("db.password");
 		String database = getConfig().getString("db.database");
-		
-		// Check db configuration
-		if(host.isEmpty() || user.isEmpty() || pass.isEmpty() || database.isEmpty()) {
-			getLogger().warning("Framework has not been enabled. Please check your configuration.");
-			return;
-		}
 
 		// Set up a connection
 		try{
