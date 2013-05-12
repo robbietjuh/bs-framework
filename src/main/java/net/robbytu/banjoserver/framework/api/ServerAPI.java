@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import net.robbytu.banjoserver.framework.Main;
 import net.robbytu.banjoserver.framework.interfaces.Server;
@@ -17,7 +18,7 @@ public class ServerAPI {
 	public static Server[] getServers(String statement) {
 		// Init some vars
 		Connection conn = Main.conn;
-		Server[] servers = {};
+		ArrayList<Server> servers = new ArrayList<Server>();
 		
 		try {
 			// Create a new select statement
@@ -35,7 +36,7 @@ public class ServerAPI {
 				server.serverPlayers = result.getInt(3);
 				
 				// Add server to return array
-				servers[servers.length] = server;
+				servers.add(server);
 			}
 		}
 		catch (SQLException e) {
@@ -43,7 +44,7 @@ public class ServerAPI {
 		}
 		
 		// Return the array of servers
-		return servers;
+		return (Server[]) servers.toArray();
 	}
 	
 
