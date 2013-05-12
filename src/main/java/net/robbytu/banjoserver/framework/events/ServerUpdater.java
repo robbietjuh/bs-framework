@@ -32,7 +32,7 @@ public class ServerUpdater implements Listener {
 	/**
 	 * Updates online player count
 	 */
-	private void updatePlayerCount() {
+	public void updatePlayerCount() {
 		// Update online count
 		try {
 			int onlineCount = Bukkit.getServer().getOnlinePlayers().length;
@@ -46,11 +46,21 @@ public class ServerUpdater implements Listener {
 	
     @EventHandler
     public void onPlayerLogin(PlayerLoginEvent event) {
-        this.updatePlayerCount();
+    	// Work around a Bukkit "bug" (event gets fired before the user is actually really logged in...)
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+			public void run() {
+				updatePlayerCount();
+			}
+		}, 10);
     }
     
     @EventHandler
     public void onPlayerQuit(PlayerQuitEvent event) {
-        this.updatePlayerCount();
+    	// Work around a Bukkit "bug" (event gets fired before the user is actually really logged in...)
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Main.plugin, new Runnable() {
+			public void run() {
+				updatePlayerCount();
+			}
+		}, 10);
     }
 }

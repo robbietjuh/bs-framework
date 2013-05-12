@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Main extends JavaPlugin {
-	public static Connection conn;
+	public Connection conn;
+	public Main plugin = this;
 	
 	private ServerUpdater serverUpdater;
 	
