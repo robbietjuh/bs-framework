@@ -30,9 +30,9 @@ public class ServerAPI {
 				Server server = new Server();
 				
 				// Fill in properties
-				server.serverName = result.getString(0);
-				server.serverStatus = result.getInt(1);
-				server.serverPlayers = result.getInt(2);
+				server.serverName = result.getString(1);
+				server.serverStatus = result.getInt(2);
+				server.serverPlayers = result.getInt(3);
 				
 				// Add server to return array
 				servers[servers.length] = server;
