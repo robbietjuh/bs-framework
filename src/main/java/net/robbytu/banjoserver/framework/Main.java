@@ -8,13 +8,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Main extends JavaPlugin {
-	public Connection conn;
-	public Main plugin = this;
+	public static Connection conn;
+	public static Main plugin;
 	
 	private ServerUpdater serverUpdater;
 	
 	@Override
 	public void onEnable() {
+		// Update plugin
+		plugin = this;
+		
 		// Check db configuration
 		if(!getConfig().contains("db.host") || !getConfig().contains("db.port") || !getConfig().contains("db.username") || !getConfig().contains("db.password") || !getConfig().contains("db.database")) {
 			// Create a default configuration file
