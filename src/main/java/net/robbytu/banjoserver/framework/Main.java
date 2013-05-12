@@ -1,0 +1,15 @@
+package net.robbytu.banjoserver.framework;
+
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin {
+	@Override
+	public void onEnable() {
+		getLogger().info("Framework has been enabled.");
+	}
+	
+	@Override
+	public void onDisable() {
+		getLogger().info("Framework has been disabled.");
+	}
+}
