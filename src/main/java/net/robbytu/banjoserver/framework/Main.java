@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Main extends JavaPlugin {
 	public static Connection conn = null;
@@ -29,7 +30,16 @@ public class Main extends JavaPlugin {
 		}
 		catch (Exception e) {
 			getLogger().warning("Framework has not been enabled. Please check your configuration.");
-			getLogger().warning(e.toString());
+			e.printStackTrace();
+		}
+		
+		// Update our Server entry in the database
+		try {
+			conn.createStatement().executeQuery("UPDATE bs_servers SET online = 1 AND players = 0 WHERE servername = '" + getServer().getServerName() + "'");
+		}
+		catch (SQLException e) {
+			getLogger().warning("Framework has not been enabled. Could not update server entry.");
+			e.printStackTrace();
 		}
 		
 		// Everything went OK
