@@ -44,7 +44,7 @@ public class ServerAPI {
 		}
 		
 		// Return the array of servers
-		return (Server[]) servers.toArray();
+		return servers.toArray(new Server[servers.size()]);
 	}
 	
 
