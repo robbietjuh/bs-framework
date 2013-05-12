@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class Main extends JavaPlugin {
-	public Connection conn = null;
+	public static Connection conn = null;
 	
 	@Override
 	public void onEnable() {
