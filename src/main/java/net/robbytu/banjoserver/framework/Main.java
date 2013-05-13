@@ -1,6 +1,6 @@
 package net.robbytu.banjoserver.framework;
 
-import net.robbytu.banjoserver.framework.events.ServerUpdater;
+import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

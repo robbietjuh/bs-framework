@@ -1,4 +1,4 @@
-package net.robbytu.banjoserver.framework.events;
+package net.robbytu.banjoserver.framework.utils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
