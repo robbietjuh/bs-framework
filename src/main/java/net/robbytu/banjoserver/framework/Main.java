@@ -44,7 +44,7 @@ public class Main extends JavaPlugin {
 
 		// Set up a connection
 		try{
-			conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database, user, pass);
+			conn = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?autoReconnect=true", user, pass);
 		}
 		catch (Exception e) {
 			getLogger().warning("Framework has not been enabled. Please check your configuration.");
