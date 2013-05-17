@@ -2,6 +2,8 @@ package net.robbytu.banjoserver.framework.utils;
 
 import net.robbytu.banjoserver.framework.Main;
 import org.bukkit.Bukkit;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -36,13 +38,15 @@ public class TaskWorker {
 
             // For each task ...
             while(result.next()) {
-                // Check what kind of task this is
                 switch(result.getInt(1)) {
                     case 1:
+                        // Execute a command
                         Bukkit.getLogger().info("Executing task type 1: " + result.getString(2));
-                        // Todo: implement task executer
+                        Player player = Bukkit.getPlayer(result.getString(3));
+                        player.performCommand(result.getString(2));
                         break;
                     default:
+                        // Unknown command type. Log it.
                         Bukkit.getLogger().warning("Got a task but didn't know what to do with it. Type seems to be " + result.getInt(1));
                         break;
                 }
