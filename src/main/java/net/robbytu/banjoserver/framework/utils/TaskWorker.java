@@ -34,20 +34,20 @@ public class TaskWorker {
 
             // Create a new select statement
             Statement select = conn.createStatement();
-            ResultSet result = select.executeQuery("SELECT tasktype, task, as_user FROM bs_tasks WHERE server = '" + Bukkit.getServer().getServerName() + "' AND completed = 0");
+            ResultSet result = select.executeQuery("SELECT id, tasktype, task, as_user FROM bs_tasks WHERE server = '" + Bukkit.getServer().getServerName() + "' AND completed = 0");
 
             // For each task ...
             while(result.next()) {
-                switch(result.getInt(1)) {
+                switch(result.getInt(2)) {
                     case 1:
                         // Execute a command
-                        Bukkit.getLogger().info("Executing task type 1: " + result.getString(2));
-                        Player player = Bukkit.getPlayer(result.getString(3));
-                        player.performCommand(result.getString(2));
+                        Bukkit.getLogger().info("Executing task type 1: " + result.getString(3));
+                        Player player = Bukkit.getPlayer(result.getString(4));
+                        player.performCommand(result.getString(3));
                         break;
                     default:
                         // Unknown command type. Log it.
-                        Bukkit.getLogger().warning("Got a task but didn't know what to do with it. Type seems to be " + result.getInt(1));
+                        Bukkit.getLogger().warning("Got a task but didn't know what to do with it. Type seems to be " + result.getInt(2));
                         break;
                 }
             }
