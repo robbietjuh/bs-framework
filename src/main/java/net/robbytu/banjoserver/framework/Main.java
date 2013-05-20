@@ -2,6 +2,7 @@ package net.robbytu.banjoserver.framework;
 
 import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
+import net.robbytu.banjoserver.framework.utils.TaskWorker;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
@@ -56,7 +57,10 @@ public class Main extends JavaPlugin {
 		this.serverUpdater.setOnline(1);
 		
 		getServer().getPluginManager().registerEvents(this.serverUpdater, this);
-		
+
+        // Set up TaskWorker
+        new TaskWorker();
+
 		// Everything went OK
 		getLogger().info("Framework has been enabled.");
 	}
