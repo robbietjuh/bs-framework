@@ -2,7 +2,6 @@ package net.robbytu.banjoserver.framework.utils;
 
 import net.robbytu.banjoserver.framework.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
