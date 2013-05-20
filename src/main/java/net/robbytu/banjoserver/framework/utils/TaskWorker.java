@@ -62,8 +62,10 @@ public class TaskWorker {
             for(String taskId : completedTasks.toArray(new String[completedTasks.size()]))
                 updateStatement += "id = " + taskId + " OR ";
 
-            // Execute update query
-            conn.createStatement().executeUpdate(updateStatement.substring(-4));
+            if(!updateStatement.equals("UPDATE bs_tasks SET completed = 1 WHERE ")) {
+                // Execute update query
+                conn.createStatement().executeUpdate(updateStatement.substring(0, updateStatement.length() - 4));
+            }
         }
         catch (Exception ex) {
             Bukkit.getLogger().warning("Could not check for tasks due to an unexpected error.");
