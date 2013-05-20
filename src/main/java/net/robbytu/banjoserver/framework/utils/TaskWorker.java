@@ -44,8 +44,7 @@ public class TaskWorker {
                     case 1:
                         // Execute a command
                         Bukkit.getLogger().info("Executing task type 1: " + result.getString(3));
-                        OfflinePlayer player = Bukkit.getOfflinePlayer(result.getString(4));
-                        player.performCommand(result.getString(3));
+                        Bukkit.getServer().dispatchCommand(Bukkit.getServer().getConsoleSender(), result.getString(3));
                         break;
                     default:
                         // Unknown command type. Log it.
