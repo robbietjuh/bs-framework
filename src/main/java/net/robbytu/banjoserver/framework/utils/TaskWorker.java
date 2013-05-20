@@ -2,7 +2,7 @@ package net.robbytu.banjoserver.framework.utils;
 
 import net.robbytu.banjoserver.framework.Main;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import org.bukkit.OfflinePlayer;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -44,7 +44,7 @@ public class TaskWorker {
                     case 1:
                         // Execute a command
                         Bukkit.getLogger().info("Executing task type 1: " + result.getString(3));
-                        Player player = Bukkit.getPlayer(result.getString(4));
+                        OfflinePlayer player = Bukkit.getOfflinePlayer(result.getString(4));
                         player.performCommand(result.getString(3));
                         break;
                     default:
