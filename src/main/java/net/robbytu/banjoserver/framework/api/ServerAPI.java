@@ -46,6 +46,16 @@ public class ServerAPI {
 		// Return the array of servers
 		return servers.toArray(new Server[servers.size()]);
 	}
+
+    /**
+     * Fetch a specific server
+     * @param serverId ID of the server
+     * @return Server object
+     */
+    public static Server getServer(int serverId) {
+        Server[] servers = getServers("WHERE id = '" + serverId + "'");
+        return servers[0];
+    }
 	
 
 	/**
