@@ -1,8 +1,10 @@
 package net.robbytu.banjoserver.framework;
 
+import net.robbytu.banjoserver.framework.bungee.PluginMessengerListener;
 import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
 import net.robbytu.banjoserver.framework.utils.TaskWorker;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
@@ -60,6 +62,10 @@ public class Main extends JavaPlugin {
 
         // Set up TaskWorker
         new TaskWorker();
+
+        // Register for Plugin messages
+        Bukkit.getMessenger().registerIncomingPluginChannel(this, "BSBungge", new PluginMessengerListener());
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BSFramework");
 
 		// Everything went OK
 		getLogger().info("Framework has been enabled.");
