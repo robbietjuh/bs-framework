@@ -53,7 +53,7 @@ public class ServerAPI {
      * @return Server object
      */
     public static Server getServer(int serverId) {
-        Server[] servers = getServers("WHERE id = '" + serverId + "'");
+        Server[] servers = getServers(" WHERE id = '" + serverId + "'");
         return servers[0];
     }
 	
