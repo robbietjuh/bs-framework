@@ -64,7 +64,7 @@ public class Main extends JavaPlugin {
         new TaskWorker();
 
         // Register for Plugin messages
-        Bukkit.getMessenger().registerIncomingPluginChannel(this, "BSBungge", new PluginMessengerListener());
+        Bukkit.getMessenger().registerIncomingPluginChannel(this, "BSBungee", new PluginMessengerListener());
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BSFramework");
 
 		// Everything went OK
