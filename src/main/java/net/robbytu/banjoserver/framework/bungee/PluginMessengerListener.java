@@ -15,7 +15,7 @@ public class PluginMessengerListener implements PluginMessageListener {
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
         try {
-            if(in.readUTF() == "teleport") {
+            if(in.readUTF().equals("teleport")) {
                 Player sender = Main.plugin.getServer().getPlayer(in.readUTF());
                 Player target = Main.plugin.getServer().getPlayer(in.readUTF());
 
@@ -25,6 +25,11 @@ public class PluginMessengerListener implements PluginMessageListener {
                 }
 
                 sender.teleport(target);
+            }
+
+            if(in.readUTF().equals("userCommand")) {
+                Player target = Main.plugin.getServer().getPlayer(in.readUTF());
+                if(target != null) target.performCommand(in.readUTF());
             }
         } catch (IOException ignored) {}
     }
