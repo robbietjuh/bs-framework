@@ -1,6 +1,6 @@
 package net.robbytu.banjoserver.framework;
 
-import net.robbytu.banjoserver.framework.bungee.PluginMessengerListener;
+import net.robbytu.banjoserver.framework.listeners.PluginMessengerListener;
 import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
 import net.robbytu.banjoserver.framework.utils.TaskWorker;

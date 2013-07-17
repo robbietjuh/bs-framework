@@ -1,4 +1,4 @@
-package net.robbytu.banjoserver.framework.bungee;
+package net.robbytu.banjoserver.framework.listeners;
 
 import net.robbytu.banjoserver.framework.Main;
 import org.bukkit.entity.Player;
