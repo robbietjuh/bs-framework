@@ -27,13 +27,13 @@ public class PlayerJoinListener implements Listener {
             while(result.next()) firstJoin = false;
 
             if(firstJoin) {
-                statement = conn.prepareStatement("SELECT material, extra, amount FROM bs_defaultinvs WHERE server = ?");
+                statement = conn.prepareStatement("SELECT material, book_title, book_content, amount FROM bs_defaultinvs WHERE server = ?");
                 statement.setString(1, Main.plugin.getServer().getServerName());
                 result = statement.executeQuery();
 
                 while(result.next()) {
                     Material material = Material.getMaterial(result.getInt(1));
-                    ItemStack stack = new ItemStack(material, result.getInt(3));
+                    ItemStack stack = new ItemStack(material, result.getInt(4));
                     event.getPlayer().getInventory().addItem(stack);
                 }
 
