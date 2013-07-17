@@ -1,5 +1,6 @@
 package net.robbytu.banjoserver.framework;
 
+import net.robbytu.banjoserver.framework.listeners.PlayerJoinListener;
 import net.robbytu.banjoserver.framework.listeners.PluginMessengerListener;
 import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
@@ -59,6 +60,9 @@ public class Main extends JavaPlugin {
 		this.serverUpdater.setOnline(1);
 		
 		getServer().getPluginManager().registerEvents(this.serverUpdater, this);
+
+        // Player Join Listener
+        getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
 
         // Set up TaskWorker
         new TaskWorker();
