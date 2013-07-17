@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BookMeta;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,6 +35,17 @@ public class PlayerJoinListener implements Listener {
                 while(result.next()) {
                     Material material = Material.getMaterial(result.getInt(1));
                     ItemStack stack = new ItemStack(material, result.getInt(4));
+
+                    if(material == Material.WRITTEN_BOOK) {
+                        BookMeta meta = (BookMeta) stack.getItemMeta();
+
+                        meta.setAuthor("Banjoserver");
+                        meta.setTitle(result.getString(2));
+                        meta.setPages(result.getString(3));
+
+                        stack.setItemMeta(meta);
+                    }
+
                     event.getPlayer().getInventory().addItem(stack);
                 }
 
