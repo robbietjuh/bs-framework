@@ -7,6 +7,7 @@ import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 import net.robbytu.banjoserver.framework.utils.TaskWorker;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.plugin.messaging.PluginMessageListenerRegistration;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -68,7 +69,9 @@ public class Main extends JavaPlugin {
         new TaskWorker();
 
         // Register for Plugin messages
-        Bukkit.getMessenger().registerIncomingPluginChannel(this, "BSBungee", new PluginMessengerListener());
+        PluginMessageListenerRegistration result = Bukkit.getMessenger().registerIncomingPluginChannel(this, "BSBungee", new PluginMessengerListener());
+        if(result.isValid()) getLogger().info("Registered for plugin messages.");
+
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BSFramework");
 
 		// Everything went OK

@@ -11,11 +11,12 @@ import java.io.IOException;
 public class PluginMessengerListener implements PluginMessageListener {
     @Override
     public void onPluginMessageReceived(String channel, Player s, byte[] message) {
-        if(channel != "BSBungee") return;
+        if(!channel.equals("BSBungee")) return;
 
         DataInputStream in = new DataInputStream(new ByteArrayInputStream(message));
         try {
-            if(in.readUTF().equals("teleport")) {
+            String cmd = in.readUTF();
+            if(cmd.equals("teleport")) {
                 Player sender = Main.plugin.getServer().getPlayer(in.readUTF());
                 Player target = Main.plugin.getServer().getPlayer(in.readUTF());
 
@@ -26,10 +27,12 @@ public class PluginMessengerListener implements PluginMessageListener {
 
                 sender.teleport(target);
             }
-
-            if(in.readUTF().equals("userCommand")) {
+            else if(cmd.equals("userCommand")) {
                 Player target = Main.plugin.getServer().getPlayer(in.readUTF());
                 if(target != null) target.performCommand(in.readUTF());
+            }
+            else {
+                Main.plugin.getLogger().warning("Received incompatible bs-bungee plugin command: " + cmd);
             }
         } catch (IOException ignored) {}
     }
