@@ -17,6 +17,8 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler
     public void playerJoin(PlayerJoinEvent event) {
+        event.setJoinMessage("");
+
         try {
             Connection conn = Main.conn;
 
