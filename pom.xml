@@ -7,7 +7,7 @@
   <version>1.0-SNAPSHOT</version>
   <name>framework</name>
   <url>http://www.banjoserver.nl</url>
-  <description>APIs to make enable interaction between servers and plugins.</description>
+  <description>APIs to enable interaction between Banjoserver servers and plugins.</description>
 
   <repositories>
     <repository>
