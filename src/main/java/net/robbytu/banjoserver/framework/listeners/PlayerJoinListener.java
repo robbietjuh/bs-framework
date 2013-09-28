@@ -3,9 +3,8 @@ package net.robbytu.banjoserver.framework.listeners;
 import net.robbytu.banjoserver.framework.Main;
 import net.robbytu.banjoserver.framework.auth.AuthProvider;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.EventHandler;
@@ -18,9 +17,9 @@ import java.sql.ResultSet;
 
 public class PlayerJoinListener implements Listener {
 
-    @EventHandler
+    @EventHandler(priority= EventPriority.HIGHEST, ignoreCancelled=true)
     public void playerJoin(PlayerJoinEvent event) {
-        event.setJoinMessage("");
+        event.setJoinMessage((Main.plugin.getServer().getOnlinePlayers().length < 30 && !Main.plugin.getServer().getServerName().equalsIgnoreCase("hub")) ? event.getPlayer().getName() + " joinde " + Main.plugin.getServer().getServerName() : null);
 
         if(AuthProvider.enabled) return;
 

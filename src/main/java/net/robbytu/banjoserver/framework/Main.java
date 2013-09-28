@@ -3,6 +3,7 @@ package net.robbytu.banjoserver.framework;
 import net.robbytu.banjoserver.framework.auth.AuthListener;
 import net.robbytu.banjoserver.framework.auth.AuthProvider;
 import net.robbytu.banjoserver.framework.listeners.PlayerJoinListener;
+import net.robbytu.banjoserver.framework.listeners.PlayerQuitListener;
 import net.robbytu.banjoserver.framework.utils.PluginMessengerListener;
 import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
@@ -65,6 +66,7 @@ public class Main extends JavaPlugin {
         getLogger().info("Registring for events...");
         getServer().getPluginManager().registerEvents(this.serverUpdater, this);
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
 
         if(getServer().getServerName().equalsIgnoreCase("hub")) {
             getLogger().info("Detected a hub server - enabling authentication gateway...");
