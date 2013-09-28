@@ -9,6 +9,7 @@ import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 import net.robbytu.banjoserver.framework.utils.TaskWorker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -95,18 +96,18 @@ public class Main extends JavaPlugin {
 	}
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+    public boolean onCommand(final CommandSender sender, Command cmd, String label, String[] args) {
         if(!(sender instanceof Player)) {
             sender.sendMessage("Console may not interact with bs-framework!");
             return true;
         }
 
-        if(!sender.isOp()) {
-            sender.sendMessage(ChatColor.RED + "Rainbows " + ChatColor.YELLOW + "have " + ChatColor.AQUA + "a " + ChatColor.LIGHT_PURPLE + "lot " + ChatColor.GREEN + "of " + ChatColor.GOLD + "colours.");
-            return true;
-        }
-
         if(label.equalsIgnoreCase("bs-framework") && args.length > 0) {
+            if(!sender.isOp()) {
+                sender.sendMessage(ChatColor.RED + "Rainbows " + ChatColor.YELLOW + "have " + ChatColor.AQUA + "a " + ChatColor.LIGHT_PURPLE + "lot " + ChatColor.GREEN + "of " + ChatColor.GOLD + "colours.");
+                return true;
+            }
+
             if(args[0].equalsIgnoreCase("setspawn")) {
                 int x = ((Player)sender).getLocation().getBlockX();
                 int y = ((Player)sender).getLocation().getBlockY();
@@ -157,6 +158,44 @@ public class Main extends JavaPlugin {
                 sender.sendMessage(ChatColor.YELLOW + "Currently available methods: ");
                 sender.sendMessage(ChatColor.GRAY + " * setspawn [authorized/unauthorized]");
                 sender.sendMessage("");
+            }
+        }
+        else if(label.equalsIgnoreCase("spawn")) {
+            int spawn_to_use = 0;
+
+            if(Main.plugin.getConfig().getBoolean("spawn.unauthenticated.is_set", false)) spawn_to_use = 1;
+            if(Main.plugin.getConfig().getBoolean("spawn.authenticated.is_set", false)) spawn_to_use = 2;
+
+            if(spawn_to_use > 0) {
+                int x = Main.plugin.getConfig().getInt("spawn." + ((spawn_to_use == 1) ? "un" : "") + "authenticated.x");
+                int y = Main.plugin.getConfig().getInt("spawn." + ((spawn_to_use == 1) ? "un" : "") + "authenticated.y");
+                int z = Main.plugin.getConfig().getInt("spawn." + ((spawn_to_use == 1) ? "un" : "") + "authenticated.z");
+
+                float pitch = Main.plugin.getConfig().getInt("spawn." + ((spawn_to_use == 1) ? "un" : "") + "authenticated.pitch");
+                float yaw = Main.plugin.getConfig().getInt("spawn." + ((spawn_to_use == 1) ? "un" : "") + "authenticated.yaw");
+
+                String world = Main.plugin.getConfig().getString("spawn." + ((spawn_to_use == 1) ? "un" : "") + "authenticated.world");
+
+                final Location location = new Location(Main.plugin.getServer().getWorld(world), x, y, z, yaw, pitch);
+                final Location old_location = ((Player) sender).getLocation();
+
+                if(getServer().getServerName().equalsIgnoreCase("hub")) {
+                    ((Player) sender).teleport(location);
+                    return true;
+                }
+
+                getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+                    @Override
+                    public void run() {
+                        if(((Player) sender).getLocation().equals(old_location)) ((Player) sender).teleport(location);
+                        else sender.sendMessage(ChatColor.RED + "Teleport geannuleerd: je bewoog.");
+                    }
+                }, 20*3);
+
+                sender.sendMessage(ChatColor.YELLOW + "Blijf stilstaan; je wordt in 3 seconden geteleporteerd.");
+            }
+            else {
+                sender.sendMessage(ChatColor.RED + "No spawn has been set. Please contact an admin.");
             }
         }
 
