@@ -27,6 +27,9 @@ public class TaskWorker {
      * Checks for new tasks
      */
     private void checkTasks() {
+        // Set time for hub servers
+        if(Main.plugin.getServer().getServerName().equalsIgnoreCase("hub")) Main.plugin.getServer().getWorlds().get(0).setTime(19900);
+
         try {
             // Fetch database connection from the Main class
             Connection conn = Main.conn;
