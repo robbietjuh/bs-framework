@@ -11,6 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.metadata.MetadataValue;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,6 +30,11 @@ public class PlayerJoinListener implements Listener {
         }
 
         event.setJoinMessage((Main.plugin.getServer().getOnlinePlayers().length < 30 && !Main.plugin.getServer().getServerName().equalsIgnoreCase("hub") && !isVanished) ? ChatColor.YELLOW + "Welkom in " + Main.plugin.getServer().getServerName() + ", " + event.getPlayer().getName() : null);
+
+        if(Main.plugin.getServer().getServerName().equalsIgnoreCase("hub")) {
+            event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 3));
+            event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+        }
 
         if(AuthProvider.enabled) return;
 
