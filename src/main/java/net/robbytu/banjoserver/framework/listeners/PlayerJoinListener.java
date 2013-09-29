@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.metadata.MetadataValue;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,14 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler(priority= EventPriority.HIGHEST, ignoreCancelled=true)
     public void playerJoin(PlayerJoinEvent event) {
-        event.setJoinMessage((Main.plugin.getServer().getOnlinePlayers().length < 30 && !Main.plugin.getServer().getServerName().equalsIgnoreCase("hub")) ? ChatColor.YELLOW + "Welkom in " + Main.plugin.getServer().getServerName() + ", " + event.getPlayer().getName() : null);
+        boolean isVanished = false;
+        for(final MetadataValue value : event.getPlayer().getMetadata("vanished")) {
+            if(value.getOwningPlugin().getName().equals("VanishNoPacket") && value.asBoolean()) {
+                isVanished = true;
+            }
+        }
+
+        event.setJoinMessage((Main.plugin.getServer().getOnlinePlayers().length < 30 && !Main.plugin.getServer().getServerName().equalsIgnoreCase("hub") && !isVanished) ? ChatColor.YELLOW + "Welkom in " + Main.plugin.getServer().getServerName() + ", " + event.getPlayer().getName() : null);
 
         if(AuthProvider.enabled) return;
 
