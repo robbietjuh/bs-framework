@@ -19,7 +19,7 @@ public class PlayerJoinListener implements Listener {
 
     @EventHandler(priority= EventPriority.HIGHEST, ignoreCancelled=true)
     public void playerJoin(PlayerJoinEvent event) {
-        event.setJoinMessage((Main.plugin.getServer().getOnlinePlayers().length < 30 && !Main.plugin.getServer().getServerName().equalsIgnoreCase("hub")) ? event.getPlayer().getName() + " joinde " + Main.plugin.getServer().getServerName() : null);
+        event.setJoinMessage((Main.plugin.getServer().getOnlinePlayers().length < 30 && !Main.plugin.getServer().getServerName().equalsIgnoreCase("hub")) ? ChatColor.YELLOW + "Welkom in " + Main.plugin.getServer().getServerName() + ", " + event.getPlayer().getName() : null);
 
         if(AuthProvider.enabled) return;
 
@@ -54,8 +54,6 @@ public class PlayerJoinListener implements Listener {
 
                     event.getPlayer().getInventory().addItem(stack);
                 }
-
-                event.getPlayer().sendMessage(ChatColor.YELLOW + "Welkom in de " + Main.plugin.getServer().getServerName() + " server van de Banjoserver, " + event.getPlayer().getName() + "!");
             }
         }
         catch(Exception ignored) {}
