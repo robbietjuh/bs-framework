@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 
@@ -18,7 +19,7 @@ public class AuthListener implements Listener {
 
     @EventHandler
     public static void playerInteractEvent(PlayerInteractEvent event) {
-        if(AuthProvider.enabled && !event.isCancelled() && !AuthProvider.isAuthenticated(event.getPlayer().getName())) event.setCancelled(true);
+        if(AuthProvider.enabled && ( (!event.isCancelled() && !AuthProvider.isAuthenticated(event.getPlayer().getName())) || (event.getAction() == Action.LEFT_CLICK_BLOCK && !event.getPlayer().isOp() && Main.plugin.getServer().getName().equalsIgnoreCase("hub")) )) event.setCancelled(true);
     }
 
     @EventHandler
