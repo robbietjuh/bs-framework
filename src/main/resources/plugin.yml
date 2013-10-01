@@ -19,3 +19,7 @@ commands:
         description: Set the time
         permission:
         usage: /time [time]
+    me:
+        description: Broadcast you are doing something
+        permission:
+        usage: /me [message ...]

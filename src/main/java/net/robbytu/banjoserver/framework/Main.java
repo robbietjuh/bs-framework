@@ -220,6 +220,17 @@ public class Main extends JavaPlugin {
             long ticks = EssentialsTimeConverter.parse(args[0]);
             ((Player) sender).getWorld().setTime(ticks);
         }
+        else if(label.equalsIgnoreCase("me")) {
+            if(args.length == 0) {
+                sender.sendMessage(ChatColor.RED + "Geef een handeling op.");
+                return true;
+            }
+
+            String message = "";
+            for (int i = 0; i < args.length; i++) message += ((i == 0) ? "" : " ") + args[i];
+
+            for(Player player : getServer().getOnlinePlayers()) player.sendMessage(ChatColor.YELLOW + " * " + sender.getName() + " " + message);
+        }
 
         return true;
     }
