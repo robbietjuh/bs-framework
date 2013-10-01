@@ -4,6 +4,7 @@ import net.robbytu.banjoserver.framework.auth.AuthListener;
 import net.robbytu.banjoserver.framework.auth.AuthProvider;
 import net.robbytu.banjoserver.framework.listeners.PlayerJoinListener;
 import net.robbytu.banjoserver.framework.listeners.PlayerQuitListener;
+import net.robbytu.banjoserver.framework.utils.EssentialsTimeConverter;
 import net.robbytu.banjoserver.framework.utils.PluginMessengerListener;
 import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
@@ -204,6 +205,20 @@ public class Main extends JavaPlugin {
             ((Player)sender).getInventory().clear();
             sender.sendMessage(ChatColor.GRAY + "Inventory geleegd.");
             getLogger().info(sender.getName() + " cleared its inventory.");
+        }
+        else if(label.equalsIgnoreCase("time")) {
+            if(!sender.isOp()) {
+                sender.sendMessage(ChatColor.RED + "Je hebt geen toegang tot dit commando.");
+                return true;
+            }
+
+            if(args.length != 1) {
+                sender.sendMessage(ChatColor.RED + "Er moet 1 argument opgegeven worden: tijd");
+                return true;
+            }
+
+            long ticks = EssentialsTimeConverter.parse(args[0]);
+            ((Player) sender).getWorld().setTime(ticks);
         }
 
         return true;

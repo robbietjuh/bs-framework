@@ -15,3 +15,7 @@ commands:
         permission:
         usage: /ci
         aliases: clearinventory
+    time:
+        description: Set the time
+        permission:
+        usage: /time [time]
