@@ -10,3 +10,8 @@ commands:
         description: Teleport to spawn
         permission:
         usage: /spawn
+    ci:
+        description: Clears your inventory
+        permission:
+        usage: /ci
+        aliases: clearinventory

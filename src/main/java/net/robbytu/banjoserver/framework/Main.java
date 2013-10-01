@@ -200,6 +200,11 @@ public class Main extends JavaPlugin {
                 sender.sendMessage(ChatColor.RED + "No spawn has been set. Please contact an admin.");
             }
         }
+        else if(label.equalsIgnoreCase("ci") || label.equalsIgnoreCase("clearinventory")) {
+            ((Player)sender).getInventory().clear();
+            sender.sendMessage(ChatColor.GRAY + "Inventory geleegd.");
+            getLogger().info(sender.getName() + " cleared its inventory.");
+        }
 
         return true;
     }
