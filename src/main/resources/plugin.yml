@@ -23,3 +23,7 @@ commands:
         description: Broadcast you are doing something
         permission:
         usage: /me [message ...]
+    gm:
+        description: Change your gamemode
+        permission:
+        usage: /gm

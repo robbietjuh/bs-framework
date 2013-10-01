@@ -11,6 +11,7 @@ import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 import net.robbytu.banjoserver.framework.utils.TaskWorker;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -230,6 +231,20 @@ public class Main extends JavaPlugin {
             for (int i = 0; i < args.length; i++) message += ((i == 0) ? "" : " ") + args[i];
 
             for(Player player : getServer().getOnlinePlayers()) player.sendMessage(ChatColor.YELLOW + " * " + sender.getName() + " " + message);
+        }
+        else if(label.equalsIgnoreCase("gm")) {
+            if(!sender.isOp()) {
+                sender.sendMessage(ChatColor.RED + "Je hebt geen toegang tot dit commando.");
+                return true;
+            }
+
+            if(args.length == 0) {
+                ((Player) sender).setGameMode((((Player) sender).getGameMode() == GameMode.SURVIVAL) ? GameMode.CREATIVE : GameMode.SURVIVAL);
+            }
+            else {
+                sender.sendMessage(ChatColor.RED + "Het wijzigen van de gamemode van een speler is enkel toegestaan vanuit de console om cheaten tegen te gaan. Deze actie is vastgelegd in de logbestanden. Neem contact op met een Owner.");
+                getLogger().warning(sender.getName() + " tried to change " + args[1] + "'s gamemode!");
+            }
         }
 
         return true;
