@@ -10,6 +10,15 @@
     <orderEntry type="library" name="craftbukkit-1.5.1-R0.1-20130330.075504-28" level="project" />
     <orderEntry type="library" name="craftbukkit-1.6.2-R0.1-20130728.195750-15" level="project" />
     <orderEntry type="library" name="bukkit-1.6.2-R0.1-20130715.060132-5" level="project" />
+    <orderEntry type="module-library">
+      <library name="Vault">
+        <CLASSES>
+          <root url="jar://$USER_HOME$/Downloads/Vault.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 

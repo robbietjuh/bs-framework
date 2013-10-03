@@ -1,6 +1,7 @@
 name: bs-framework
 main: net.robbytu.banjoserver.framework.Main
 version: ${version}
+depend: [Vault]
 commands:
     bs-framework:
         description: bs-framework interaction

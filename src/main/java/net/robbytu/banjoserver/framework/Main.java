@@ -1,5 +1,6 @@
 package net.robbytu.banjoserver.framework;
 
+import net.milkbowl.vault.permission.Permission;
 import net.robbytu.banjoserver.framework.auth.AuthListener;
 import net.robbytu.banjoserver.framework.auth.AuthProvider;
 import net.robbytu.banjoserver.framework.listeners.PlayerJoinListener;
@@ -16,6 +17,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListenerRegistration;
 
@@ -27,6 +29,8 @@ public class Main extends JavaPlugin {
 	public static Main plugin;
 	
 	private ServerUpdater serverUpdater;
+
+    private Permission permission;
 	
 	@Override
 	public void onEnable() {
@@ -84,6 +88,12 @@ public class Main extends JavaPlugin {
         if(result.isValid()) getLogger().info("Registered for plugin messages.");
 
         Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BSFramework");
+
+        getLogger().info("Vault integration...");
+        RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
+        if (permissionProvider != null) {
+            permission = permissionProvider.getProvider();
+        }
 
 		getLogger().info("Framework has been enabled.");
 	}
