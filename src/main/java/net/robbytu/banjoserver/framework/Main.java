@@ -9,13 +9,14 @@ import net.robbytu.banjoserver.framework.utils.PluginMessengerListener;
 import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 
 import net.robbytu.banjoserver.framework.utils.TaskWorker;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import net.robbytu.banjoserver.framework.votes.Vote;
+import net.robbytu.banjoserver.framework.votes.Votes;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListenerRegistration;
 
@@ -244,6 +245,17 @@ public class Main extends JavaPlugin {
             else {
                 sender.sendMessage(ChatColor.RED + "Het wijzigen van de gamemode van een speler is enkel toegestaan vanuit de console om cheaten tegen te gaan. Deze actie is vastgelegd in de logbestanden. Neem contact op met een Owner.");
                 getLogger().warning(sender.getName() + " tried to change " + args[1] + "'s gamemode!");
+            }
+        }
+        else if(label.equalsIgnoreCase("vote")) {
+            Vote vote = Votes.getVoteForUser(sender.getName());
+            if(vote != null) {
+                int random = (int)(Math.random() * getConfig().getList("vote.rewards").size()) -1;
+                int itemId = getConfig().getInt("vote.rewards.item" + random + ".item");
+                int itemAmount = getConfig().getInt("vote.rewards.item" + random + ".amount");
+
+                ItemStack item = new ItemStack(Material.getMaterial(itemId), itemAmount);
+                sender.sendMessage(ChatColor.GREEN + "Bedankt voor het stemmen! Je hebt " + Material.getMaterial(itemId).name() + " verdiend!");
             }
         }
 
