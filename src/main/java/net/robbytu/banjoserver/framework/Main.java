@@ -273,6 +273,26 @@ public class Main extends JavaPlugin {
                 sender.sendMessage(ChatColor.GRAY + "Je hebt nog niet gestemt of je hebt de afgelopen 24 uur al een stem ingewisseld. Ga naar onze website om te stemmen! Bedankt.");
             }
         }
+        else if(label.equalsIgnoreCase("item") || label.equalsIgnoreCase("i")) {
+            if(!sender.isOp()) {
+                sender.sendMessage(ChatColor.RED + "Je hebt geen toegang tot dit commando.");
+                return true;
+            }
+
+            if(args.length < 1) {
+                sender.sendMessage(ChatColor.RED + "Geef een item id of naam op.");
+                return true;
+            }
+
+            Material mat = Material.getMaterial(args[0]);
+            ItemStack stack = new ItemStack(mat, 64);
+
+            if(args.length == 2) stack = new ItemStack(mat, Integer.parseInt(args[1]));
+
+            ((Player) sender).getInventory().addItem(stack);
+
+            sender.sendMessage(ChatColor.GRAY + "You got some " + args[0]);
+        }
 
         return true;
     }
