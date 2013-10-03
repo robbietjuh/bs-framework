@@ -32,3 +32,8 @@ commands:
         description: Redeem your vote
         permission:
         usage: /vote
+    item:
+        description: Get items
+        permission:
+        usage: /item
+        aliases: i
