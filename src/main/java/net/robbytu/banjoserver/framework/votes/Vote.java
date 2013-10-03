@@ -5,4 +5,5 @@ public class Vote {
     public String serviceName;
     public String address;
     public int timestamp;
+    public int id;
 }

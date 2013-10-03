@@ -11,7 +11,7 @@ public class Votes {
         Connection conn = Main.conn;
 
         try {
-            PreparedStatement statement = conn.prepareStatement("SELECT username, serviceName, address, timestamp FROM bs_votes WHERE timestamp < ? AND redeemed = ? AND username = ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT username, serviceName, address, timestamp, id FROM bs_votes WHERE timestamp < ? AND redeemed = ? AND username = ?");
 
             statement.setInt(1, (int) ((int) System.currentTimeMillis() / 1000L));
             statement.setInt(2, 0);
@@ -22,6 +22,7 @@ public class Votes {
             if(result.next()) {
                 Vote vote = new Vote();
 
+                vote.id = result.getInt(5);
                 vote.username = result.getString(1);
                 vote.serviceName = result.getString(2);
                 vote.address = result.getString(3);
@@ -36,5 +37,18 @@ public class Votes {
         catch(Exception ignored) {
             return null;
         }
+    }
+
+    public static void redeemVote(Vote vote) {
+        Connection conn = Main.conn;
+        try {
+            PreparedStatement statement = conn.prepareStatement("UPDATE bs_votes SET redeemed = ? WHERE id = ?");
+
+            statement.setInt(1, (int)(System.currentTimeMillis() / 1000L));
+            statement.setInt(2, vote.id);
+
+            statement.executeUpdate();
+        }
+        catch(Exception ignore) {}
     }
 }
