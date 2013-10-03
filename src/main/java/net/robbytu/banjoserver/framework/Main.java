@@ -14,13 +14,11 @@ import net.robbytu.banjoserver.framework.votes.Votes;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListenerRegistration;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 

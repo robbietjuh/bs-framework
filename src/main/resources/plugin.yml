@@ -27,3 +27,7 @@ commands:
         description: Change your gamemode
         permission:
         usage: /gm
+    vote:
+        description: Redeem your vote
+        permission:
+        usage: /vote
