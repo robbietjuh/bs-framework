@@ -1,6 +1,7 @@
 package net.robbytu.banjoserver.framework;
 
 import net.milkbowl.vault.permission.Permission;
+
 import net.robbytu.banjoserver.framework.auth.AuthListener;
 import net.robbytu.banjoserver.framework.auth.AuthProvider;
 import net.robbytu.banjoserver.framework.listeners.PlayerJoinListener;
@@ -12,6 +13,7 @@ import net.robbytu.banjoserver.framework.utils.ServerUpdater;
 import net.robbytu.banjoserver.framework.utils.TaskWorker;
 import net.robbytu.banjoserver.framework.votes.Vote;
 import net.robbytu.banjoserver.framework.votes.Votes;
+
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
