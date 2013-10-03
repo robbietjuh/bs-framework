@@ -255,6 +255,9 @@ public class Main extends JavaPlugin {
                 ItemStack item = new ItemStack(Material.getMaterial(itemId), itemAmount);
                 sender.sendMessage(ChatColor.GREEN + "Bedankt voor het stemmen! Je hebt " + Material.getMaterial(itemId).name() + " verdiend!");
             }
+            else {
+                sender.sendMessage(ChatColor.GRAY + "Je hebt nog niet gestemt of je hebt de afgelopen 24 uur al een stem ingewisseld. Ga naar onze website om te stemmen! Bedankt.");
+            }
         }
 
         return true;
