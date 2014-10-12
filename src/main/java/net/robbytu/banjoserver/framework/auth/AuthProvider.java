@@ -1,15 +1,16 @@
 package net.robbytu.banjoserver.framework.auth;
 
 import net.robbytu.banjoserver.framework.Main;
-import net.robbytu.banjoserver.framework.interfaces.Server;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.potion.PotionEffectType;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,6 +44,8 @@ public class AuthProvider {
             Main.plugin.getServer().getPlayer(player).teleport(location);
 
             Player p_player = Main.plugin.getServer().getPlayer(player);
+            p_player.removePotionEffect(PotionEffectType.INVISIBILITY);
+
             p_player.getInventory().clear(); // He, it's the hub server - wa do ya want?
 
             try {
