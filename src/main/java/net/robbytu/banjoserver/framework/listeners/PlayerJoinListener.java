@@ -46,14 +46,21 @@ public class PlayerJoinListener implements Listener {
         try {
             Connection conn = Main.conn;
 
-            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bs_firstjoin WHERE username LIKE ?");
+            PreparedStatement statement = conn.prepareStatement("SELECT * FROM bs_firstjoin WHERE username LIKE ? AND server = ?");
             statement.setString(1, event.getPlayer().getName());
+            statement.setString(2, Main.plugin.getServer().getServerName());
             ResultSet result = statement.executeQuery();
 
             boolean firstJoin = true;
             while(result.next()) firstJoin = false;
 
             if(firstJoin) {
+                statement = conn.prepareStatement("INSERT INTO bs_firstjoin (username, server, date) VALUES (?, ?, ?)");
+                statement.setString(1, event.getPlayer().getName());
+                statement.setString(2, Main.plugin.getServer().getServerName());
+                statement.setInt(3, (int) (System.currentTimeMillis() / 1000L));
+                statement.executeUpdate();
+
                 statement = conn.prepareStatement("SELECT material, book_title, book_content, amount FROM bs_defaultinvs WHERE server LIKE ?");
                 statement.setString(1, Main.plugin.getServer().getServerName());
                 result = statement.executeQuery();
