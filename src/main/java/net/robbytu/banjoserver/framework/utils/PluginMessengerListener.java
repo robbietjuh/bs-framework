@@ -40,6 +40,13 @@ public class PluginMessengerListener implements PluginMessageListener {
                 Player target = Main.plugin.getServer().getPlayer(in.readUTF());
                 if(target != null) target.performCommand(in.readUTF());
             }
+            else if(cmd.equals("ClearInventoryServer")) {
+                String admin = in.readUTF();
+                String player = in.readUTF();
+
+                Main.plugin.getServer().getPlayer(player).getInventory().clear();
+                Main.plugin.getLogger().info(admin + " cleared " + player + "'s inventory");
+            }
             else if(cmd.equals("PlayerAuthInfo")) {
                 // Authenticated users don't *have* to be on this particular server, so we don't want to get the target user as a Player object.
                 String player = in.readUTF();

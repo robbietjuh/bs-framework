@@ -1,5 +1,7 @@
 package net.robbytu.banjoserver.framework;
 
+import com.google.common.io.ByteArrayDataOutput;
+import com.google.common.io.ByteStreams;
 import net.milkbowl.vault.permission.Permission;
 
 import net.robbytu.banjoserver.framework.auth.AuthListener;
@@ -89,7 +91,7 @@ public class Main extends JavaPlugin {
         PluginMessageListenerRegistration result = Bukkit.getMessenger().registerIncomingPluginChannel(this, "BSBungee", new PluginMessengerListener());
         if(result.isValid()) getLogger().info("Registered for plugin messages.");
 
-        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BSFramework");
+        Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
         getLogger().info("Vault integration...");
         RegisteredServiceProvider<Permission> permissionProvider = getServer().getServicesManager().getRegistration(net.milkbowl.vault.permission.Permission.class);
@@ -214,9 +216,28 @@ public class Main extends JavaPlugin {
             }
         }
         else if(label.equalsIgnoreCase("ci") || label.equalsIgnoreCase("clearinventory")) {
-            ((Player)sender).getInventory().clear();
-            sender.sendMessage(ChatColor.GRAY + "Inventory geleegd.");
-            getLogger().info(sender.getName() + " cleared its inventory.");
+            if(args.length == 0) {
+                ((Player)sender).getInventory().clear();
+                sender.sendMessage(ChatColor.GRAY + "Inventory geleegd.");
+                getLogger().info(sender.getName() + " cleared his inventory.");
+            }
+            else if(args.length == 1) {
+                if(!sender.isOp()) {
+                    sender.sendMessage(ChatColor.RED + "Het legen van de inventory van een speler is enkel toegestaan als je een Admin bent. Deze actie is vastgelegd in de logbestanden. Neem contact op met een Owner.");
+                    getLogger().warning(sender.getName() + " tried to clear " + args[0] + "'s inventory but access was denied!");
+                }
+                else {
+                    Player p = (Player) sender;
+
+                    ByteArrayDataOutput out = ByteStreams.newDataOutput();
+
+                    out.writeUTF("ClearInventoryGlobal/");
+                    out.writeUTF(sender.getName() + "/");
+                    out.writeUTF(args[1]);
+
+                    p.sendPluginMessage(Main.plugin, "BungeeCord", out.toByteArray());
+                }
+            }
         }
         else if(label.equalsIgnoreCase("time")) {
             if(!sender.isOp()) {
