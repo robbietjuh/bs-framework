@@ -34,19 +34,16 @@ public class AuthListener implements Listener {
 
     @EventHandler
     public static void playerRespawnEvent(PlayerRespawnEvent event) {
-        if(!AuthProvider.enabled) return;
+        if(!AuthProvider.enabled && Main.plugin.getConfig().getBoolean("spawn.use", false) == false) return;
 
         int spawn_to_use = 0;
 
-        if(Main.plugin.getConfig().getBoolean("spawn.unauthenticated.is_set", false) == true && !AuthProvider.isAuthenticated(event.getPlayer().getName())) {
+        if(Main.plugin.getConfig().getBoolean("spawn.unauthenticated.is_set", false) == true && !AuthProvider.isAuthenticated(event.getPlayer().getName()))
             spawn_to_use = 1; //unauthed
-        }
-        else if(Main.plugin.getConfig().getBoolean("spawn.authenticated.is_set", false) == true && AuthProvider.isAuthenticated(event.getPlayer().getName())) {
+        else if(Main.plugin.getConfig().getBoolean("spawn.authenticated.is_set", false) == true && AuthProvider.isAuthenticated(event.getPlayer().getName()))
             spawn_to_use = 2; //authed
-        }
-        else if(Main.plugin.getConfig().getBoolean("spawn.unauthenticated.is_set", false) == true && AuthProvider.isAuthenticated(event.getPlayer().getName())) {
+        else if(Main.plugin.getConfig().getBoolean("spawn.unauthenticated.is_set", false) == true && AuthProvider.isAuthenticated(event.getPlayer().getName()))
             spawn_to_use = 1; //unauthed
-        }
 
         if(spawn_to_use == 0) return;
 
