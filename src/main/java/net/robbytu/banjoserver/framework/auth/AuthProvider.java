@@ -6,6 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.sql.Connection;
@@ -77,6 +78,13 @@ public class AuthProvider {
 
     public static void removeAuthenticatedUser(String player) {
         if(!enabled) return;
+
+
+        if(Main.plugin.getServer().getServerName().equalsIgnoreCase("hub")) {
+            //event.getPlayer().addPotionEffect(new PotionEffect(PotionEffectType.JUMP, Integer.MAX_VALUE, 3));
+            Main.plugin.getServer().getPlayer(player).addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1));
+            Main.plugin.getServer().getPlayer(player).addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1));
+        }
 
         if(isAuthenticated(player)) authenticatedUsers.remove(player.toUpperCase());
 
